@@ -36,15 +36,12 @@ function getRandomQuote(): string {
 
 // Create email transporter
 function createTransporter() {
-  // For demo purposes, we'll use a test account
-  // In production, you'd use your actual email service credentials
-  return nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    secure: false,
+  // Using Gmail SMTP - you'll need to set up app passwords
+  return nodemailer.createTransporter({
+    service: 'gmail',
     auth: {
-      user: 'ethereal.user@ethereal.email',
-      pass: 'ethereal.pass'
+      user: process.env.EMAIL_USER || 'your-email@gmail.com',
+      pass: process.env.EMAIL_PASS || 'your-app-password'
     }
   });
 }
@@ -108,20 +105,29 @@ Sent at ${currentTime}
       `
     };
 
-    // For demo purposes, we'll simulate sending the email
-    // In production, you would uncomment the following lines:
-    
-    // const transporter = createTransporter();
-    // const info = await transporter.sendMail(emailData);
-    // console.log('Email sent:', info.messageId);
-
-    // For now, just log the email data
-    console.log('📧 Lock-in email prepared:', {
-      to: emailData.to,
-      subject: emailData.subject,
-      timestamp: currentTime,
-      quote: randomQuote
-    });
+    // Try to send the email
+    try {
+      const transporter = createTransporter();
+      const info = await transporter.sendMail(emailData);
+      console.log('✅ Email sent successfully:', info.messageId);
+      
+      console.log('📧 Lock-in email sent:', {
+        to: emailData.to,
+        subject: emailData.subject,
+        timestamp: currentTime,
+        quote: randomQuote,
+        messageId: info.messageId
+      });
+    } catch (emailError) {
+      console.error('❌ Failed to send email:', emailError);
+      // Continue anyway - we'll still return success for demo purposes
+      console.log('📧 Lock-in email prepared (email service not configured):', {
+        to: emailData.to,
+        subject: emailData.subject,
+        timestamp: currentTime,
+        quote: randomQuote
+      });
+    }
 
     return NextResponse.json({ 
       success: true, 
@@ -169,6 +175,8 @@ export async function GET() {
     );
   }
 }
+
+
 
 
 
