@@ -1,84 +1,254 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const slogans = [
-  "Turn chats into apps",
-  "Prompt. Ship. Repeat.",
-  "Build anything from a chat",
-  "Ideas → Apps, instantly",
-  "From zero to MVP in minutes",
-  "Your cofounder in the command line",
-  "Draft, iterate, deploy",
-  "Ship faster than you can type",
-  "Design in text, deliver in code",
-  "Dream it. Prompt it. Run it.",
-  "Chat-native app building",
-  "From prompt to product",
-  "One prompt, infinite apps",
-  "Stop scaffolding. Start shipping.",
-  "Prototype at the speed of thought",
-  "Make conversations executable"
-];
+export default function Home() {
+  const [status, setStatus] = useState<any>(null);
+  const [lastEmailSent, setLastEmailSent] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-export default function Landing() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-
+  // Initialize the email scheduler and fetch status
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % slogans.length);
-        setIsVisible(true);
-      }, 400);
-    }, 2800);
+    // Import and initialize the scheduler
+    import('../lib/email-scheduler').then((module) => {
+      const scheduler = module.hourlyEmailScheduler;
+      setStatus(scheduler.getStatus());
+      console.log('📧 Email scheduler initialized from React component');
+    });
 
-    return () => clearInterval(interval);
+    // Fetch status from API
+    const fetchStatus = async () => {
+      try {
+        const response = await fetch('/api/status');
+        const data = await response.json() as { success: boolean; scheduler: any };
+        if (data.success) {
+          setStatus(data.scheduler);
+        }
+      } catch (error) {
+        console.error('Failed to fetch status:', error);
+      }
+    };
+
+    fetchStatus();
+    
+    // Refresh status every 30 seconds
+    const statusInterval = setInterval(fetchStatus, 30000);
+    
+    return () => clearInterval(statusInterval);
   }, []);
 
+  const sendTestEmail = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: 'investorgbriel@gmail.com',
+          subject: '🔥 TEST LOCK IN TIME! 🔥',
+          message: 'Test lock-in reminder'
+        })
+      });
+
+      const result = await response.json() as { success: boolean; error?: string };
+      
+      if (result.success) {
+        setLastEmailSent(new Date().toLocaleString());
+        alert('✅ Test email sent successfully!');
+      } else {
+        alert('❌ Failed to send test email: ' + result.error);
+      }
+    } catch (error) {
+      alert('❌ Error sending test email: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const triggerHourlyReminder = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/cron/hourly-reminder', {
+        method: 'POST',
+      });
+
+      const result = await response.json() as { success: boolean; error?: string };
+      
+      if (result.success) {
+        setLastEmailSent(new Date().toLocaleString());
+        alert('✅ Hourly reminder sent successfully!');
+      } else {
+        alert('❌ Failed to send hourly reminder: ' + result.error);
+      }
+    } catch (error) {
+      alert('❌ Error sending hourly reminder: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-black text-white">
-      {/* Enhanced animated aurora background layers */}
-      <div className="absolute inset-0 bg-aurora-layer-1" />
-      <div className="absolute inset-0 bg-aurora-layer-2" />
-      <div className="absolute inset-0 bg-aurora-layer-3" />
-      
-      {/* Floating particles overlay */}
-      <div className="absolute inset-0 bg-particles" />
-      
-      {/* Main content - centered */}
-      <main className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        <h1 className="text-center text-[clamp(28px,6vw,64px)] font-medium tracking-tight mb-4">
-          Turn Chats into Apps
-        </h1>
-        
-        {/* Rotating slogans */}
-        <div className="mt-4 h-8 md:h-10 overflow-hidden flex items-center justify-center">
-          <span
-            className={`inline-block text-center text-[clamp(18px,3vw,32px)] font-light transition-all duration-[400ms] ease-in-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-            }`}
-          >
-            {slogans[currentIndex]}
-          </span>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 p-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-800 mb-4">
+            🔥 Lock-In Email Agent 🔥
+          </h1>
+          <p className="text-xl text-gray-600 mb-2">
+            Hourly productivity reminders sent to <strong>investorgbriel@gmail.com</strong>
+          </p>
+          <p className="text-lg text-gray-500">
+            Stay focused, stay productive! 💪
+          </p>
         </div>
-      </main>
-      
-      {/* Start Prompting arrow pointing left - bottom left */}
-      <div className="absolute left-6 md:left-8 bottom-[5%] z-20 flex items-center gap-3 arrow-point-left">
-        <div className="flex items-center gap-2 text-white/80 font-medium text-sm md:text-base">
-          <svg 
-            className="w-5 h-5 md:w-6 md:h-6 animate-bounce-horizontal" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Start prompting</span>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          {/* Status Card */}
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              📊 System Status
+            </h2>
+            
+            <div className="space-y-4">
+              <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg">
+                <span className="font-semibold text-green-800">Email Service</span>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  status?.isRunning 
+                    ? 'bg-green-200 text-green-800' 
+                    : 'bg-red-200 text-red-800'
+                }`}>
+                  {status?.isRunning ? '✅ Active' : '❌ Stopped'}
+                </span>
+              </div>
+              
+              <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
+                <span className="font-semibold text-blue-800">Target Email</span>
+                <span className="text-blue-600 text-sm">
+                  {status?.targetEmail || 'investorgbriel@gmail.com'}
+                </span>
+              </div>
+              
+              <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg">
+                <span className="font-semibold text-purple-800">Frequency</span>
+                <span className="text-purple-600 font-medium">Every Hour</span>
+              </div>
+
+              {status?.nextEmailTime && (
+                <div className="flex justify-between items-center p-4 bg-orange-50 rounded-lg">
+                  <span className="font-semibold text-orange-800">Next Email</span>
+                  <span className="text-orange-600 text-sm">{status.nextEmailTime}</span>
+                </div>
+              )}
+
+              {lastEmailSent && (
+                <div className="flex justify-between items-center p-4 bg-yellow-50 rounded-lg">
+                  <span className="font-semibold text-yellow-800">Last Test Email</span>
+                  <span className="text-yellow-600 text-sm">{lastEmailSent}</span>
+                </div>
+              )}
+
+              {status?.startedAt && (
+                <div className="flex justify-between items-center p-4 bg-indigo-50 rounded-lg">
+                  <span className="font-semibold text-indigo-800">Started At</span>
+                  <span className="text-indigo-600 text-sm">{status.startedAt}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Controls Card */}
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              🎮 Controls
+            </h2>
+            
+            <div className="space-y-4">
+              <button
+                onClick={sendTestEmail}
+                disabled={isLoading}
+                className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-orange-300 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center"
+              >
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    📧 Send Test Email
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={triggerHourlyReminder}
+                disabled={isLoading}
+                className="w-full bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center"
+              >
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    ⚡ Trigger Hourly Reminder
+                  </>
+                )}
+              </button>
+
+              <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-gray-600 text-center">
+                  <strong>Note:</strong> The system automatically sends hourly reminders. 
+                  Use the buttons above to test the email functionality.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Features Card */}
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            ✨ Features
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-red-50 rounded-lg">
+              <div className="text-3xl mb-3">⏰</div>
+              <h3 className="font-bold text-gray-800 mb-2">Hourly Reminders</h3>
+              <p className="text-gray-600 text-sm">Automatic emails sent every hour to keep you focused</p>
+            </div>
+            
+            <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg">
+              <div className="text-3xl mb-3">💬</div>
+              <h3 className="font-bold text-gray-800 mb-2">Random Quotes</h3>
+              <p className="text-gray-600 text-sm">Motivational quotes included with each reminder</p>
+            </div>
+            
+            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-blue-50 rounded-lg">
+              <div className="text-3xl mb-3">🎯</div>
+              <h3 className="font-bold text-gray-800 mb-2">Stay Productive</h3>
+              <p className="text-gray-600 text-sm">Consistent reminders to maintain focus and productivity</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-gray-500">
+            🚀 Your productivity agent is running 24/7 to keep you locked in!
+          </p>
         </div>
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+
