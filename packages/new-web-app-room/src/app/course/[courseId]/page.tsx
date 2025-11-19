@@ -78,10 +78,12 @@ export default function CoursePage({ params }: CoursePageProps) {
               </h1>
             </div>
             <Link
-              href="#"
+              href="https://nullshot.ai/jam/4189c980-2b37-487c-916c-c82e7863ff2d/thread/2ccc3850-f377-4276-9520-ea9d62c79362"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2"
             >
-              <span>View Jam</span>
+              <span>Go to Jam</span>
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
@@ -177,25 +179,13 @@ export default function CoursePage({ params }: CoursePageProps) {
               </div>
               
               {/* Embedded App Preview */}
-              <div className="p-8 bg-gray-50 dark:bg-gray-900 min-h-[600px]">
-                {params.courseId === 'todo-list' && <TodoApp />}
-                {params.courseId !== 'todo-list' && (
-                  <div className="flex items-center justify-center h-full">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                        </svg>
-                      </div>
-                      <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                        App Preview Coming Soon
-                      </h3>
-                      <p className="text-gray-500 dark:text-gray-400">
-                        This tutorial is currently being developed.
-                      </p>
-                    </div>
-                  </div>
-                )}
+              <div className="relative">
+                <iframe 
+                  src="https://google.com"
+                  className="w-full h-[600px] border-0"
+                  title="Live Preview"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                />
               </div>
             </div>
           </div>
@@ -205,58 +195,9 @@ export default function CoursePage({ params }: CoursePageProps) {
   );
 }
 
-// Embedded Todo App Component
-function TodoApp() {
-  return (
-    <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-        My Todo List
-      </h1>
-      
-      {/* Add Todo Form */}
-      <div className="mb-6">
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            placeholder="Add a new task..."
-            className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-          />
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200">
-            Add
-          </button>
-        </div>
-      </div>
 
-      {/* Todo List */}
-      <div className="space-y-2 mb-6">
-        {/* Sample todos */}
-        <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-          <input type="checkbox" className="w-4 h-4 text-blue-600" />
-          <span className="flex-1 text-gray-900 dark:text-white">Learn React basics</span>
-          <button className="text-red-500 hover:text-red-700 text-sm">Delete</button>
-        </div>
-        
-        <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-          <input type="checkbox" checked className="w-4 h-4 text-blue-600" />
-          <span className="flex-1 text-gray-500 dark:text-gray-400 line-through">Build todo app</span>
-          <button className="text-red-500 hover:text-red-700 text-sm">Delete</button>
-        </div>
-        
-        <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-          <input type="checkbox" className="w-4 h-4 text-blue-600" />
-          <span className="flex-1 text-gray-900 dark:text-white">Deploy to production</span>
-          <button className="text-red-500 hover:text-red-700 text-sm">Delete</button>
-        </div>
-      </div>
 
-      {/* Stats */}
-      <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
-        <span>Total: 3 tasks</span>
-        <span>Completed: 1 task</span>
-        <span>Remaining: 2 tasks</span>
-      </div>
-    </div>
-  );
-}
+
+
 
 
