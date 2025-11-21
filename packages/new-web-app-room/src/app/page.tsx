@@ -1,84 +1,114 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Link from 'next/link';
 
-const slogans = [
-  "Turn chats into apps",
-  "Prompt. Ship. Repeat.",
-  "Build anything from a chat",
-  "Ideas → Apps, instantly",
-  "From zero to MVP in minutes",
-  "Your cofounder in the command line",
-  "Draft, iterate, deploy",
-  "Ship faster than you can type",
-  "Design in text, deliver in code",
-  "Dream it. Prompt it. Run it.",
-  "Chat-native app building",
-  "From prompt to product",
-  "One prompt, infinite apps",
-  "Stop scaffolding. Start shipping.",
-  "Prototype at the speed of thought",
-  "Make conversations executable"
-];
-
-export default function Landing() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % slogans.length);
-        setIsVisible(true);
-      }, 400);
-    }, 2800);
-
-    return () => clearInterval(interval);
-  }, []);
+export default function Home() {
+  const [userType, setUserType] = useState<'customer' | 'chef' | null>(null);
 
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-black text-white">
-      {/* Enhanced animated aurora background layers */}
-      <div className="absolute inset-0 bg-aurora-layer-1" />
-      <div className="absolute inset-0 bg-aurora-layer-2" />
-      <div className="absolute inset-0 bg-aurora-layer-3" />
-      
-      {/* Floating particles overlay */}
-      <div className="absolute inset-0 bg-particles" />
-      
-      {/* Main content - centered */}
-      <main className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        <h1 className="text-center text-[clamp(28px,6vw,64px)] font-medium tracking-tight mb-4">
-          Turn Chats into Apps
-        </h1>
-        
-        {/* Rotating slogans */}
-        <div className="mt-4 h-8 md:h-10 overflow-hidden flex items-center justify-center">
-          <span
-            className={`inline-block text-center text-[clamp(18px,3vw,32px)] font-light transition-all duration-[400ms] ease-in-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-            }`}
-          >
-            {slogans[currentIndex]}
-          </span>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <h1 className="text-2xl font-bold text-orange-600">ChefMarket</h1>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Link href="/login" className="text-gray-700 hover:text-orange-600">
+                Login
+              </Link>
+              <Link href="/signup" className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">
+                Sign Up
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Connect with Local Chefs
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Discover amazing homemade meals from talented chefs in your area
+          </p>
+          
+          {/* User Type Selection */}
+          <div className="max-w-md mx-auto mb-12">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">I want to:</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => setUserType('customer')}
+                className={`p-6 rounded-lg border-2 transition-all ${
+                  userType === 'customer'
+                    ? 'border-orange-500 bg-orange-50'
+                    : 'border-gray-200 hover:border-orange-300'
+                }`}
+              >
+                <div className="text-4xl mb-2">🍽️</div>
+                <h4 className="font-semibold text-gray-900">Order Food</h4>
+                <p className="text-sm text-gray-600">Browse and order from local chefs</p>
+              </button>
+              
+              <button
+                onClick={() => setUserType('chef')}
+                className={`p-6 rounded-lg border-2 transition-all ${
+                  userType === 'chef'
+                    ? 'border-orange-500 bg-orange-50'
+                    : 'border-gray-200 hover:border-orange-300'
+                }`}
+              >
+                <div className="text-4xl mb-2">👨‍🍳</div>
+                <h4 className="font-semibold text-gray-900">Cook & Sell</h4>
+                <p className="text-sm text-gray-600">Share your culinary skills</p>
+              </button>
+            </div>
+            
+            {userType && (
+              <div className="mt-6">
+                <Link
+                  href={userType === 'customer' ? '/customer/browse' : '/chef/dashboard'}
+                  className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-700 inline-block"
+                >
+                  Get Started as {userType === 'customer' ? 'Customer' : 'Chef'}
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="grid md:grid-cols-3 gap-8 mt-16">
+          <div className="text-center">
+            <div className="text-5xl mb-4">🔒</div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Secure Payments</h3>
+            <p className="text-gray-600">
+              Multiple payment options with escrow protection for safe transactions
+            </p>
+          </div>
+          
+          <div className="text-center">
+            <div className="text-5xl mb-4">⭐</div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Quality Assured</h3>
+            <p className="text-gray-600">
+              Verified chefs with ratings and reviews from real customers
+            </p>
+          </div>
+          
+          <div className="text-center">
+            <div className="text-5xl mb-4">💬</div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Direct Communication</h3>
+            <p className="text-gray-600">
+              Chat with chefs directly without sharing personal information
+            </p>
+          </div>
         </div>
       </main>
-      
-      {/* Start Prompting arrow pointing left - bottom left */}
-      <div className="absolute left-6 md:left-8 bottom-[5%] z-20 flex items-center gap-3 arrow-point-left">
-        <div className="flex items-center gap-2 text-white/80 font-medium text-sm md:text-base">
-          <svg 
-            className="w-5 h-5 md:w-6 md:h-6 animate-bounce-horizontal" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Start prompting</span>
-        </div>
-      </div>
     </div>
   );
 }
+
