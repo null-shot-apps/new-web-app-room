@@ -19,10 +19,23 @@
   }
 }
 
-/* Non-scroll and full-height baseline */
+/* Scrollable full-height baseline */
 html, body {
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* Ensure root container allows scrolling */
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Improve scrolling on mobile */
+* {
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -147,3 +160,5 @@ body {
 .animate-bounce-horizontal {
   animation: bounce-horizontal 1.5s ease-in-out infinite;
 }
+
+

@@ -32,7 +32,7 @@ export function AppPreview({ appUrl, title }: AppPreviewProps) {
       </div>
 
       <div className="p-4">
-        <div className="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden" style={{ height: '400px' }}>
+        <div className="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden h-96 min-h-[400px]">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
@@ -96,4 +96,5 @@ export function AppPreview({ appUrl, title }: AppPreviewProps) {
     </div>
   );
 }
+
 

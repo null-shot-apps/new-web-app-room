@@ -80,12 +80,12 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       {/* Course Header */}
       <CourseHeader course={course} />
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Tutorial Content */}
           <div className="lg:col-span-2 space-y-8">
@@ -108,7 +108,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
 
           {/* Right Column - App Preview */}
           <div className="lg:col-span-1">
-            <div className="sticky top-8">
+            <div className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
               <AppPreview appUrl={course.appUrl} title={course.title} />
             </div>
           </div>
@@ -117,6 +117,9 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
     </div>
   );
 }
+
+
+
 
 
 
