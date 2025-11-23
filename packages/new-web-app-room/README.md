@@ -1,24 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) and configured for Cloudflare Pages deployment.
+# Nullshot Jam Tutorial Platform
+
+A web application that transforms public Nullshot Jam sessions into structured tutorials and quizzes for developers and AI-assisted builders.
+
+## Features
+
+### 🎯 Core Functionality
+- **Jam Processing**: Paste any public Jam URL to extract content and generate tutorials
+- **Course Grid**: Browse available tutorials organized by tech stack and difficulty
+- **Interactive Tutorials**: Step-by-step guides with code examples and explanations
+- **Knowledge Quizzes**: Test understanding with multiple-choice questions
+- **Live Previews**: Embedded webviews of the final applications
+
+### 📚 Course Organization
+- **Tech Stack Filtering**: React, Next.js, Vue, Python, and more
+- **Difficulty Levels**: Beginner, Intermediate, Advanced
+- **Default Content**: Includes a "Simple Todo List" tutorial to get started
+
+### 🔧 Technical Features
+- **AI-Generated Content**: Tutorials and quizzes created from Jam conversations
+- **Responsive Design**: Works on desktop and mobile devices
+- **Dark Mode Support**: Automatic theme switching
+- **TypeScript**: Full type safety throughout the application
 
 ## Getting Started
 
-First, run the development server:
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Open in Browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## Webview & CORS Configuration
 
@@ -64,3 +81,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
