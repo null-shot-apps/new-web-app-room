@@ -13,7 +13,7 @@ class CourseStore {
       jamUrl: 'https://jam.nullshot.dev/todo-example',
       duration: '45 min',
       overview: 'In this tutorial, you\'ll build a fully functional todo list application. You\'ll learn how to manage component state, handle user input, implement CRUD operations, and style your app with Tailwind CSS. This is perfect for beginners who want to understand React fundamentals through a practical project.',
-      appUrl: 'https://todo-demo.nullshot.dev',
+      appUrl: 'https://codesandbox.io/embed/react-todo-app-typescript-forked-8x9kj?fontsize=14&hidenavigation=1&theme=dark&view=preview',
       isDefault: true,
       createdAt: '2024-01-01T00:00:00Z',
       steps: [
@@ -132,3 +132,4 @@ const [inputValue, setInputValue] = useState('');`,
 
 // Export singleton instance
 export const courseStore = new CourseStore();
+
