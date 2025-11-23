@@ -3,8 +3,9 @@ import { courseStore } from '@/lib/courseStore';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
+  const { params } = context;
   try {
     const course = courseStore.getCourseById(params.id);
 
@@ -28,3 +29,4 @@ export async function GET(
     );
   }
 }
+

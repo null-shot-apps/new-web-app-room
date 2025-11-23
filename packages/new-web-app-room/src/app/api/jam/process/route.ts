@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { courseStore } from '@/lib/courseStore';
 
 // Mock function to simulate Jam content extraction
-async function extractJamContent(jamUrl: string) {
+async function extractJamContent(_jamUrl: string) {
   // In a real implementation, this would:
   // 1. Parse the Jam URL to extract the Jam ID
   // 2. Call Nullshot API or scrape the public Jam page
@@ -72,7 +72,7 @@ function TodoList() {
 }
 
 // Mock function to generate quiz questions
-async function generateQuiz(jamContent: any, tutorial: any) {
+async function generateQuiz(_jamContent: any, _tutorial: any) {
   // In a real implementation, this would generate quiz questions based on the tutorial content
   
   return [
@@ -101,7 +101,7 @@ async function generateQuiz(jamContent: any, tutorial: any) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json() as { jamUrl: string };
-    const jamUrl = body.jamUrl;
+    let jamUrl = body.jamUrl;
 
     if (!jamUrl) {
       return NextResponse.json(
@@ -110,10 +110,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate URL format (basic check)
-    if (!jamUrl.includes('jam.nullshot.dev') && !jamUrl.includes('nullshot.dev')) {
+    // Normalize URL: trim whitespace
+    jamUrl = jamUrl.trim();
+
+    // Flexible URL validation - accept various Nullshot Jam URL formats
+    const validPatterns = [
+      /https?:\/\/jam\.nullshot\.ai\/[^\/\s]+/i,
+      /https?:\/\/nullshot\.ai\/jam\/[^\/\s]+/i,
+      /https?:\/\/nullshot\.ai\/en\/jam\/[^\/\s]+/i,
+      /https?:\/\/jam\.nullshot\.dev\/[^\/\s]+/i,
+      /https?:\/\/nullshot\.dev\/jam\/[^\/\s]+/i
+    ];
+
+    const isValidUrl = validPatterns.some(pattern => pattern.test(jamUrl));
+
+    if (!isValidUrl) {
       return NextResponse.json(
-        { error: 'Invalid Jam URL format' },
+        { error: 'Invalid Jam URL format. Please provide a valid Nullshot Jam URL.' },
         { status: 400 }
       );
     }
@@ -164,6 +177,11 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+
+
+
+
 
 
 
