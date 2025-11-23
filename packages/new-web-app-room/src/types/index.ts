@@ -21,6 +21,26 @@ export interface TutorialStep {
   description: string;
   code: string;
   explanation: string;
+  tips?: string[];
+  resources?: Resource[];
+  challenge?: MiniChallenge;
+  prerequisites?: string[];
+  timeEstimate?: string;
+  difficulty?: 'easy' | 'medium' | 'hard';
+}
+
+export interface Resource {
+  title: string;
+  url: string;
+  type: 'documentation' | 'tutorial' | 'video' | 'article' | 'tool';
+  description?: string;
+}
+
+export interface MiniChallenge {
+  title: string;
+  description: string;
+  hint?: string;
+  solution?: string;
 }
 
 export interface QuizQuestion {
@@ -61,3 +81,4 @@ export interface ProcessJamResponse {
   course: Course;
   message: string;
 }
+
