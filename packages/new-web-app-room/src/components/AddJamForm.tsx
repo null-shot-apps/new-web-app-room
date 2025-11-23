@@ -21,21 +21,52 @@ export function AddJamForm() {
         body: JSON.stringify({ jamUrl: jamUrl.trim() }),
       });
 
-      const data = await response.json() as { error?: string; course?: { title: string } };
+      let data;
+      try {
+        data = await response.json() as { 
+          error?: string; 
+          details?: string;
+          course?: { title: string };
+          success?: boolean;
+          message?: string;
+        };
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError);
+        throw new Error('Invalid response from server. Please try again.');
+      }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to process Jam');
+        const errorMessage = data.error || `Server error (${response.status})`;
+        const errorDetails = data.details ? `\n\nDetails: ${data.details}` : '';
+        throw new Error(errorMessage + errorDetails);
+      }
+
+      if (!data.success || !data.course) {
+        throw new Error('Invalid response format from server');
       }
 
       // Reset form
       setJamUrl('');
-      alert(`Tutorial "${data.course?.title}" generated successfully! Check the course grid for your new tutorial.`);
+      
+      // Show success message
+      const successMessage = `Tutorial "${data.course.title}" generated successfully! Check the course grid for your new tutorial.`;
+      alert(successMessage);
       
       // In a real app, you might want to refresh the course list or redirect
       window.location.reload();
     } catch (error) {
       console.error('Error processing Jam:', error);
-      alert(error instanceof Error ? error.message : 'Error processing Jam. Please try again.');
+      
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+      
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      
+      // Show user-friendly error message
+      alert(errorMessage);
     } finally {
       setIsProcessing(false);
     }
@@ -87,5 +118,6 @@ export function AddJamForm() {
     </div>
   );
 }
+
 
 
