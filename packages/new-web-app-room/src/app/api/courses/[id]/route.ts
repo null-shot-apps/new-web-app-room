@@ -3,11 +3,11 @@ import { courseStore } from '@/lib/courseStore';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { params } = context;
+  const { id } = await context.params;
   try {
-    const course = courseStore.getCourseById(params.id);
+    const course = courseStore.getCourseById(id);
 
     if (!course) {
       return NextResponse.json(
@@ -29,4 +29,5 @@ export async function GET(
     );
   }
 }
+
 

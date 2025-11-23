@@ -1,26 +1,27 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { CourseHeader } from '@/components/CourseHeader';
 import { TutorialSteps } from '@/components/TutorialSteps';
 import { AppPreview } from '@/components/AppPreview';
 import { CourseQuiz } from '@/components/CourseQuiz';
 import { Course } from '@/types';
 
-export default function CoursePage({ params }: { params: { id: string } }) {
+export default function CoursePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchCourse();
-  }, [params.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchCourse = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/courses/${params.id}`);
+      const response = await fetch(`/api/courses/${id}`);
       const data = await response.json() as { error?: string; course: Course };
 
       if (!response.ok) {
@@ -116,6 +117,8 @@ export default function CoursePage({ params }: { params: { id: string } }) {
     </div>
   );
 }
+
+
 
 
 
