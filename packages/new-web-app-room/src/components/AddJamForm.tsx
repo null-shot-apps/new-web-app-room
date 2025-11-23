@@ -73,51 +73,80 @@ export function AddJamForm() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border p-6">
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-          Add New Jam Tutorial
-        </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-300">
-          Paste a public Nullshot Jam URL to generate a structured tutorial and quiz
-        </p>
-      </div>
+    <div className="relative group">
+      {/* Animated background gradient */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
       
-      <form onSubmit={handleSubmit} className="flex gap-4">
-        <div className="flex-1">
-          <input
-            type="url"
-            value={jamUrl}
-            onChange={(e) => setJamUrl(e.target.value)}
-            placeholder="https://jam.nullshot.dev/your-jam-id"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            disabled={isProcessing}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={!jamUrl.trim() || isProcessing}
-          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium rounded-md transition-colors"
-        >
-          {isProcessing ? (
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Processing...
+      <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 p-8">
+        {/* Header with icon */}
+        <div className="mb-6">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform duration-300">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
             </div>
-          ) : (
-            'Generate Tutorial'
-          )}
-        </button>
-      </form>
-      
-      <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-        <p>
-          <strong>Supported:</strong> Public Jam URLs only. Private Jams require owner permission.
-        </p>
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              ✨ Add New Jam Tutorial
+            </h3>
+          </div>
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+            🎯 Paste a public Nullshot Jam URL to generate a structured tutorial and quiz
+          </p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+            <input
+              type="url"
+              value={jamUrl}
+              onChange={(e) => setJamUrl(e.target.value)}
+              placeholder="🔗 https://jam.nullshot.dev/your-jam-id"
+              className="relative w-full px-6 py-4 border-2 border-indigo-200 dark:border-indigo-700 rounded-xl bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-400 transition-all duration-300 text-lg font-medium shadow-lg hover:shadow-xl"
+              disabled={isProcessing}
+            />
+          </div>
+          
+          <button
+            type="submit"
+            disabled={!jamUrl.trim() || isProcessing}
+            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none disabled:hover:scale-100"
+          >
+            {isProcessing ? (
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>🔄 Processing Magic...</span>
+              </div>
+            ) : (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Generate Tutorial
+              </span>
+            )}
+          </button>
+        </form>
+        
+        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+          <div className="flex items-start space-x-3">
+            <div className="w-5 h-5 text-blue-500 mt-0.5">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="text-sm text-blue-700 dark:text-blue-300">
+              <p className="font-medium">💡 Pro Tip:</p>
+              <p className="mt-1">Public Jam URLs only. Private Jams require owner permission.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
 
 
 
