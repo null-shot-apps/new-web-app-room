@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { VaultOverview } from './VaultOverview';
-import { CreateVaultForm } from './CreateVaultForm';
+import VaultOverview from './VaultOverview';
+import CreateVaultForm from './CreateVaultForm';
 import { VaultList } from './VaultList';
-import { TransactionHistory } from './TransactionHistory';
+import TransactionHistory from './TransactionHistory';
 
 export function VaultDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -49,3 +49,4 @@ export function VaultDashboard() {
     </div>
   );
 }
+

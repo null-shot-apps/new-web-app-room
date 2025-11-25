@@ -1,195 +1,195 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Badge } from "@/components/ui/badge"
+import { X, Plus, Users, Shield, Eye } from 'lucide-react'
 
-export function CreateVaultForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    requiredApprovals: 3,
-    members: [''],
-    purpose: 'general'
-  });
+export default function CreateVaultForm() {
+  const [vaultName, setVaultName] = useState('')
+  const [description, setDescription] = useState('')
+  const [requiredApprovals, setRequiredApprovals] = useState('3')
+  const [approvers, setApprovers] = useState([''])
+  const [vaultType, setVaultType] = useState('')
 
-  const addMember = () => {
-    setFormData(prev => ({
-      ...prev,
-      members: [...prev.members, '']
-    }));
-  };
+  const addApprover = () => {
+    setApprovers([...approvers, ''])
+  }
 
-  const updateMember = (index: number, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      members: prev.members.map((member, i) => i === index ? value : member)
-    }));
-  };
+  const removeApprover = (index: number) => {
+    setApprovers(approvers.filter((_, i) => i !== index))
+  }
 
-  const removeMember = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      members: prev.members.filter((_, i) => i !== index)
-    }));
-  };
+  const updateApprover = (index: number, value: string) => {
+    const updated = [...approvers]
+    updated[index] = value
+    setApprovers(updated)
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle vault creation
-    console.log('Creating vault:', formData);
-  };
+    console.log('Creating vault:', {
+      vaultName,
+      description,
+      requiredApprovals,
+      approvers: approvers.filter(a => a.trim()),
+      vaultType
+    })
+  }
 
   return (
-    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            🏗️ Create New Vault
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+    <div className="max-w-2xl mx-auto p-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-6 w-6 text-blue-600" />
+            Create New Vault
+          </CardTitle>
+          <CardDescription>
             Set up a secure multi-signature vault for your group funds
-          </p>
-        </div>
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Vault Type */}
+            <div className="space-y-2">
+              <Label htmlFor="vault-type">Vault Type</Label>
+              <Select value={vaultType} onValueChange={setVaultType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select vault purpose" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="giveaway">Giveaway & Contests</SelectItem>
+                  <SelectItem value="community">Community Project</SelectItem>
+                  <SelectItem value="charity">Charity & Donations</SelectItem>
+                  <SelectItem value="investment">Investment Club</SelectItem>
+                  <SelectItem value="event">Event Planning</SelectItem>
+                  <SelectItem value="business">Business Treasury</SelectItem>
+                  <SelectItem value="escrow">Escrow Service</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Vault Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Vault Name
-            </label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="e.g., Community Giveaway Fund"
-              required
-            />
-          </div>
-
-          {/* Description */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Description
-            </label>
-            <textarea
-              value={formData.description}
-              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              rows={3}
-              placeholder="Describe the purpose of this vault..."
-              required
-            />
-          </div>
-
-          {/* Purpose */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Vault Purpose
-            </label>
-            <select
-              value={formData.purpose}
-              onChange={(e) => setFormData(prev => ({ ...prev, purpose: e.target.value }))}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="general">General Fund</option>
-              <option value="giveaway">Giveaway/Contest</option>
-              <option value="charity">Charity Drive</option>
-              <option value="investment">Investment Club</option>
-              <option value="event">Event Planning</option>
-              <option value="business">Business Treasury</option>
-              <option value="escrow">Escrow Service</option>
-            </select>
-          </div>
-
-          {/* Required Approvals */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Required Approvals
-            </label>
-            <div className="flex items-center space-x-4">
-              <input
-                type="range"
-                min="2"
-                max="10"
-                value={formData.requiredApprovals}
-                onChange={(e) => setFormData(prev => ({ ...prev, requiredApprovals: parseInt(e.target.value) }))}
-                className="flex-1"
+            {/* Vault Name */}
+            <div className="space-y-2">
+              <Label htmlFor="vault-name">Vault Name</Label>
+              <Input
+                id="vault-name"
+                value={vaultName}
+                onChange={(e) => setVaultName(e.target.value)}
+                placeholder="e.g., Community Giveaway Fund"
+                required
               />
-              <div className="bg-blue-100 dark:bg-blue-900 px-4 py-2 rounded-lg">
-                <span className="text-blue-800 dark:text-blue-200 font-bold">
-                  {formData.requiredApprovals} approvals needed
-                </span>
+            </div>
+
+            {/* Description */}
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Describe the purpose of this vault..."
+                rows={3}
+              />
+            </div>
+
+            {/* Required Approvals */}
+            <div className="space-y-2">
+              <Label htmlFor="approvals">Required Approvals</Label>
+              <Select value={requiredApprovals} onValueChange={setRequiredApprovals}>
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="2">2 of N</SelectItem>
+                  <SelectItem value="3">3 of N</SelectItem>
+                  <SelectItem value="4">4 of N</SelectItem>
+                  <SelectItem value="5">5 of N</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-sm text-gray-600">
+                Number of people who must approve each transaction
+              </p>
+            </div>
+
+            {/* Approvers */}
+            <div className="space-y-2">
+              <Label>Vault Approvers</Label>
+              <div className="space-y-3">
+                {approvers.map((approver, index) => (
+                  <div key={index} className="flex gap-2">
+                    <Input
+                      value={approver}
+                      onChange={(e) => updateApprover(index, e.target.value)}
+                      placeholder="Enter email or wallet address"
+                      className="flex-1"
+                    />
+                    {approvers.length > 1 && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => removeApprover(index)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={addApprover}
+                  className="w-full"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Another Approver
+                </Button>
               </div>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              Number of people who must approve each transaction
-            </p>
-          </div>
 
-          {/* Members */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Vault Members
-            </label>
-            <div className="space-y-3">
-              {formData.members.map((member, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <input
-                    type="email"
-                    value={member}
-                    onChange={(e) => updateMember(index, e.target.value)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="member@example.com"
-                    required
-                  />
-                  {formData.members.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeMember(index)}
-                      className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                    >
-                      ❌
-                    </button>
-                  )}
+            {/* Security Features */}
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <h3 className="font-medium text-blue-900 mb-2 flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                Security Features
+              </h3>
+              <div className="space-y-2 text-sm text-blue-800">
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  Multi-signature protection - no single person can access funds
                 </div>
-              ))}
-              <button
-                type="button"
-                onClick={addMember}
-                className="w-full py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl text-gray-500 dark:text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors"
-              >
-                ➕ Add Member
-              </button>
+                <div className="flex items-center gap-2">
+                  <Eye className="h-4 w-4" />
+                  Public transparency - all transactions are visible
+                </div>
+                <div className="flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  Immutable audit trail - complete transaction history
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Submit Button */}
-          <div className="pt-6">
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-blue-500 to-emerald-500 text-white py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            >
-              🚀 Create Vault
-            </button>
-          </div>
-        </form>
-
-        {/* Security Notice */}
-        <div className="mt-8 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-          <div className="flex items-start space-x-3">
-            <span className="text-green-500 text-xl">🔒</span>
-            <div>
-              <h4 className="font-semibold text-green-800 dark:text-green-200">Security Features</h4>
-              <ul className="text-sm text-green-700 dark:text-green-300 mt-1 space-y-1">
-                <li>• Multi-signature protection - no single person can access funds</li>
-                <li>• All transactions are publicly visible and auditable</li>
-                <li>• Members receive notifications for all vault activities</li>
-                <li>• Funds are secured by blockchain technology</li>
-              </ul>
+            {/* Submit */}
+            <div className="flex gap-3">
+              <Button type="submit" className="flex-1">
+                Create Vault
+              </Button>
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
             </div>
-          </div>
-        </div>
-      </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
-  );
+  )
 }
