@@ -3,23 +3,25 @@ import { AddJamForm } from "@/components/AddJamForm";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 flex flex-col relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 via-amber-50 to-emerald-50 dark:from-gray-900 dark:via-purple-900 dark:to-indigo-900 flex flex-col relative overflow-hidden">
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-pink-400/30 to-rose-400/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-cyan-400/30 to-blue-400/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-r from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-pulse delay-700"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[32rem] h-[32rem] bg-gradient-to-r from-indigo-400/15 to-purple-400/15 rounded-full blur-3xl animate-pulse delay-300"></div>
       </div>
 
       {/* Header */}
-      <header className="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800 shadow-2xl border-b border-white/20">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/90 via-purple-600/90 to-pink-600/90 backdrop-blur-sm"></div>
+      <header className="relative bg-gradient-to-r from-rose-500 via-pink-500 via-purple-500 via-indigo-500 to-cyan-500 dark:from-rose-700 dark:via-pink-700 dark:via-purple-700 dark:via-indigo-700 dark:to-cyan-700 shadow-2xl border-b border-white/20 animate-gradient-x">
+        <div className="absolute inset-0 bg-gradient-to-r from-rose-500/95 via-pink-500/95 via-purple-500/95 via-indigo-500/95 to-cyan-500/95 backdrop-blur-sm"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-between">
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform duration-300">
-                  <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-400 to-red-500 rounded-xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-all duration-300 hover:scale-110 animate-pulse">
+                  <svg className="w-7 h-7 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
@@ -27,8 +29,8 @@ export default function Home() {
                   Nullshot Jam Tutorials
                 </h1>
               </div>
-              <p className="text-xl text-indigo-100 max-w-2xl leading-relaxed">
-                🚀 Learn from real coding sessions - structured tutorials from public Jams
+              <p className="text-xl text-white/90 max-w-2xl leading-relaxed drop-shadow-md">
+                🚀 Transform real coding sessions into structured learning adventures
               </p>
             </div>
             <div className="hidden lg:flex items-center space-x-6">
@@ -53,15 +55,15 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="flex-1 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12 space-y-8 lg:space-y-16">
           {/* Add Jam Section */}
           <div className="transform hover:scale-[1.02] transition-transform duration-300">
             <AddJamForm />
           </div>
 
           {/* Course Grid Section */}
-          <div className="space-y-8">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div className="space-y-6 lg:space-y-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   🎯 Available Courses
@@ -110,6 +112,12 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+
+
+
 
 
 

@@ -74,19 +74,19 @@ export function AddJamForm() {
 
   return (
     <div className="relative group">
-      {/* Animated background gradient */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+      {/* Enhanced animated background gradient */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-rose-500 via-pink-500 via-purple-500 via-indigo-500 to-cyan-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-gradient-x"></div>
       
-      <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 p-8">
+      <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/30 dark:border-gray-700/50 p-8 animate-float-enhanced">
         {/* Header with icon */}
         <div className="mb-6">
           <div className="flex items-center space-x-3 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform duration-300">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-all duration-300 hover:scale-110 animate-colorful-glow">
+              <svg className="w-6 h-6 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent animate-gradient-text">
               ✨ Add New Jam Tutorial
             </h3>
           </div>
@@ -97,13 +97,13 @@ export function AddJamForm() {
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
             <input
               type="url"
               value={jamUrl}
               onChange={(e) => setJamUrl(e.target.value)}
-              placeholder="🔗 https://jam.nullshot.dev/your-jam-id"
-              className="relative w-full px-6 py-4 border-2 border-indigo-200 dark:border-indigo-700 rounded-xl bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-400 transition-all duration-300 text-lg font-medium shadow-lg hover:shadow-xl"
+              placeholder="🔗 https://jam.nullshot.ai/your-jam-id"
+              className="relative w-full px-6 py-4 border-2 border-emerald-200 dark:border-emerald-700 rounded-xl bg-white/90 dark:bg-gray-700/90 backdrop-blur-md text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-emerald-200 focus:border-emerald-400 transition-all duration-300 text-lg font-medium shadow-lg hover:shadow-xl focus:shadow-2xl"
               disabled={isProcessing}
             />
           </div>
@@ -111,7 +111,7 @@ export function AddJamForm() {
           <button
             type="submit"
             disabled={!jamUrl.trim() || isProcessing}
-            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none disabled:hover:scale-100"
+            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-700 hover:via-teal-700 hover:to-cyan-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none disabled:hover:scale-100 animate-colorful-glow"
           >
             {isProcessing ? (
               <div className="flex items-center justify-center gap-3">
@@ -146,6 +146,11 @@ export function AddJamForm() {
     </div>
   );
 }
+
+
+
+
+
 
 
 

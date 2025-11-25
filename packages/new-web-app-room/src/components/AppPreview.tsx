@@ -109,16 +109,16 @@ export function AppPreview({ appUrl, title }: AppPreviewProps) {
 
   return (
     <div className="relative group">
-      <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
-      <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/50 overflow-hidden">
-        <div className="p-6 border-b border-gradient-to-r from-cyan-200 to-blue-200 dark:from-cyan-700 dark:to-blue-700 bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20">
+      <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-500 via-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300 animate-gradient-x"></div>
+      <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/30 dark:border-gray-700/50 overflow-hidden animate-float-enhanced">
+        <div className="p-6 border-b border-gradient-to-r from-cyan-200 via-blue-200 to-purple-200 dark:from-cyan-700 dark:via-blue-700 dark:to-purple-700 bg-gradient-to-r from-cyan-50 via-blue-50 to-purple-50 dark:from-cyan-900/20 dark:via-blue-900/20 dark:to-purple-900/20">
           <div className="flex items-center space-x-3 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg animate-colorful-glow">
+              <svg className="w-6 h-6 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 bg-clip-text text-transparent animate-gradient-text">
               🖥️ Live Preview
             </h3>
           </div>
@@ -233,12 +233,16 @@ export function AppPreview({ appUrl, title }: AppPreviewProps) {
               ref={iframeRef}
               src={isValidUrl ? appUrl : ''}
               title={`${title} Preview`}
-              className="w-full h-full border-0"
+              className="w-full h-full border-0 rounded-lg"
               onLoad={handleIframeLoad}
               onError={handleIframeError}
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
               loading="lazy"
+              style={{
+                colorScheme: 'normal',
+                backgroundColor: '#ffffff'
+              }}
             />
           )}
         </div>
@@ -276,6 +280,9 @@ export function AppPreview({ appUrl, title }: AppPreviewProps) {
     </div>
   );
 }
+
+
+
 
 
 

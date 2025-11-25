@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react';
 import { Course } from '@/types';
 
 const difficultyColors = {
-  beginner: 'bg-gradient-to-r from-green-400 to-emerald-500 text-white shadow-lg',
-  intermediate: 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg',
-  advanced: 'bg-gradient-to-r from-red-400 to-pink-500 text-white shadow-lg'
+  beginner: 'bg-gradient-to-r from-emerald-400 via-green-400 to-teal-500 text-white shadow-lg animate-pulse',
+  intermediate: 'bg-gradient-to-r from-amber-400 via-orange-400 to-red-500 text-white shadow-lg animate-pulse',
+  advanced: 'bg-gradient-to-r from-rose-400 via-pink-500 to-purple-600 text-white shadow-lg animate-pulse'
 };
 
 const difficultyIcons = {
@@ -45,7 +45,7 @@ export function CourseGrid() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {[1, 2, 3].map((i) => (
           <div key={i} className="group relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-20 animate-pulse"></div>
@@ -100,20 +100,20 @@ export function CourseGrid() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
       {courses.map((course, index) => (
         <div
           key={course.id}
           className="group relative transform hover:scale-105 transition-all duration-500"
           style={{ animationDelay: `${index * 100}ms` }}
         >
-          {/* Animated gradient border */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+          {/* Enhanced animated gradient border */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-rose-500 via-pink-500 via-purple-500 via-indigo-500 to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-gradient-x"></div>
           
           <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/50 overflow-hidden hover:shadow-2xl transition-all duration-500">
-            {/* Thumbnail with gradient overlay */}
-            <div className="relative h-56 bg-gradient-to-br from-indigo-400 via-purple-500 to-pink-500 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/80 via-purple-600/80 to-pink-600/80"></div>
+            {/* Enhanced thumbnail with dynamic gradient overlay */}
+            <div className="relative h-56 bg-gradient-to-br from-rose-400 via-pink-500 via-purple-500 via-indigo-500 to-cyan-500 overflow-hidden animate-gradient-x">
+              <div className="absolute inset-0 bg-gradient-to-br from-rose-600/85 via-pink-600/85 via-purple-600/85 via-indigo-600/85 to-cyan-600/85"></div>
               <div className="absolute inset-0 flex items-center justify-center text-white">
                 <div className="text-center space-y-3">
                   <div className="w-16 h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
@@ -223,6 +223,11 @@ export function CourseGrid() {
     </div>
   );
 }
+
+
+
+
+
 
 
 

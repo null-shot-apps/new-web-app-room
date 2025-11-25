@@ -104,12 +104,14 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 flex flex-col relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 via-amber-50 to-emerald-50 dark:from-gray-900 dark:via-purple-900 dark:to-indigo-900 flex flex-col relative overflow-hidden">
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-pink-400/30 to-rose-400/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-cyan-400/30 to-blue-400/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-emerald-400/25 to-teal-400/25 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-r from-amber-400/25 to-orange-400/25 rounded-full blur-3xl animate-pulse delay-700"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[32rem] h-[32rem] bg-gradient-to-r from-indigo-400/15 to-purple-400/15 rounded-full blur-3xl animate-pulse delay-300"></div>
       </div>
 
       {/* Course Header */}
@@ -119,10 +121,10 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
 
       {/* Main Content */}
       <div className="flex-1 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
             {/* Left Column - Tutorial Content */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="xl:col-span-2 space-y-6 lg:space-y-8 order-2 xl:order-1">
               {/* Overview */}
               <div className="group relative">
                 <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
@@ -155,8 +157,8 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
             </div>
 
             {/* Right Column - App Preview */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto">
+            <div className="xl:col-span-1 order-1 xl:order-2">
+              <div className="xl:sticky xl:top-6 xl:max-h-[calc(100vh-3rem)] xl:overflow-y-auto">
                 <div className="group relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
                   <div className="relative">
@@ -171,6 +173,9 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
     </div>
   );
 }
+
+
+
 
 
 

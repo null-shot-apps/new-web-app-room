@@ -19,19 +19,27 @@
   }
 }
 
-/* Scrollable full-height baseline with enhanced smoothness */
-html, body {
-  min-height: 100%;
+/* Enhanced scrollable full-height baseline */
+html {
+  height: 100%;
+  overflow-x: hidden;
   overflow-y: auto;
   scroll-behavior: smooth;
   scroll-padding-top: 2rem;
 }
 
-/* Ensure root container allows scrolling */
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Ensure root container allows proper scrolling */
 #__next {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Improve scrolling on mobile and add momentum */
@@ -314,6 +322,128 @@ body {
 .animate-rotate-border {
   animation: rotateBorder 8s linear infinite;
 }
+
+/* Animated gradient background */
+@keyframes gradientX {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradientX 15s ease infinite;
+}
+
+/* Enhanced floating animation with more movement */
+@keyframes floatEnhanced {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-20px) translateX(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-10px) translateX(-5px) rotate(-1deg);
+  }
+}
+
+.animate-float-enhanced {
+  animation: floatEnhanced 4s ease-in-out infinite;
+}
+
+/* Colorful glow effect */
+@keyframes colorfulGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.4), 0 0 40px rgba(147, 51, 234, 0.2);
+  }
+  25% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 0 40px rgba(245, 158, 11, 0.2);
+  }
+  75% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4), 0 0 40px rgba(239, 68, 68, 0.2);
+  }
+}
+
+.animate-colorful-glow {
+  animation: colorfulGlow 3s ease-in-out infinite;
+}
+
+/* Smooth scale animation for cards */
+@keyframes smoothScale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.animate-smooth-scale {
+  animation: smoothScale 4s ease-in-out infinite;
+}
+
+/* Breathing animation for buttons */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* Improved responsive utilities */
+@media (max-width: 768px) {
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .mobile-space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+}
+
+/* Enhanced focus states for better accessibility */
+.focus-ring {
+  transition: all 0.2s ease-in-out;
+}
+
+.focus-ring:focus {
+  outline: none;
+  ring: 3px;
+  ring-color: rgba(99, 102, 241, 0.5);
+  ring-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+
 
 
 
